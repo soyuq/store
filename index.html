@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>listing/</title>
+	</head>
+	<body>
+		<br>
+		<div style="display: flex; gap: 4px">
+			<a onclick="document.querySelector('#container').remove() || window.location.reload()">
+				↻
+			</a>
+			<a onclick="document.querySelectorAll('details').forEach(d => d.setAttribute('open', ''))">
+				V
+			</a>
+			<a onclick="document.querySelectorAll('details').forEach(d => d.removeAttribute('open'))">
+				^
+			</a>
+		</div>
+		<br>
+		<details id="container" open>
+			<summary>.</summary>
+		</details>
+		<script>
+			function reflect(element, contents, url) {
+				for (const entry of contents) {
+					if (entry.type == "directory") {
+						console.log('d', entry.name)
+						let details = document.createElement("details")
+						let summary = document.createElement("summary")
+						summary.innerText = entry.name
+						details.appendChild(summary)
+						element.appendChild(details)
+						reflect(details, entry.contents, `${url}/${entry.name}`)
+					}
+					if  (entry.type == "file") {
+						console.log('f', entry.name)
+						let a = document.createElement("a")
+						a.innerText = entry.name
+						a.href = `${url}/${entry.name}`
+						element.appendChild(a)
+					}
+				}
+			}
+			async function init() {
+				const res = await fetch("./tree.json")
+				const contents = await res.json()
+				
+				const currentDirContent = contents[0].contents // which its .name is "."
+				reflect(document.querySelector("#container"), currentDirContent, "./")
+			}
+			init()
+			console.log("jii")
+		</script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			details {
+				display: flex;
+				flex-direction: column;
+			}
+			html, body {
+				background-color: #1d2021;
+			}
+			a,
+			summary
+				{
+				padding: 8px 30px;
+				border-radius: 11px;
+				color: #FFF;
+				text-decoration: none;
+				font-family: sans-serif;
+				font-size: 23px;
+				background-color: #29333888;
+				cursor: pointer;
+			}
+
+			summary:hover,
+			a:hover {
+				background-color: #385651 ;
+				background-color: #293338ff;
+			}
+			a:focus {
+				outline: 2px solid #8BDA73;
+			}
+			details[open] > *:not(summary) {
+				margin-left: 30px !important
+			}
+			details[open] > * {
+				margin-bottom: 6px
+			}
+			#container {
+				padding-right: 30px;
+			}
+		</style>
+	</body>
+</html>

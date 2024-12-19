@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>listing/</title>
+	</head>
+	<body>
+		<div id="container"></div>
+		<script>
+			function link(link, name) {
+				name ||= link
+				const a = document.createElement("a")
+				a.href = `./${link}`
+				a.innerText = `${name}`
+				document.querySelector("#container").appendChild(a)
+			}
+			async function main(){
+				const res = await fetch("list.txt")
+				const text = await res.text()
+				const lines = text.split("\n")
+				for (const line of lines) 
+					link(line, `./${line}`)
+			}
+			main()
+
+			fetch("https://github.com/va9iff/tesol").then(res=>res.json()).then(data=>console.log(data))
+		</script>
+		<style>
+			html, body {
+				background-color: #1d2021;
+			}
+			#container {
+				display: flex;
+				flex-direction: column;
+			}
+			#container a {
+				padding: 13px 30px;
+				border-radius: 11px;
+				color: #FFF;
+				text-decoration: none;
+				font-family: sans-serif;
+				font-size: 23px;
+				margin: 6px;
+
+				background-color: #293338;
+			}
+
+			#container a:hover {
+				background-color: #385651 ;
+			}
+			#container a:focus {
+				outline: 2px solid #8BDA73;
+			}
+		</style>
+	</body>
+</html>

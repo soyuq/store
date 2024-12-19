@@ -1,8 +1,10 @@
 [
   {"type":"directory","name":".","contents":[
+    {"type":"file","name":"0sync.sh"},
     {"type":"file","name":"index.html"},
     {"type":"file","name":"jaja.txt"},
     {"type":"file","name":"tree.json"},
+    {"type":"file","name":"tree.sh"},
     {"type":"directory","name":"z","contents":[
       {"type":"directory","name":"archive","contents":[
         {"type":"file","name":"index-list-local-file.html"},
@@ -10,9 +12,7 @@
     ]},
       {"type":"file","name":"list.sh"},
       {"type":"file","name":"list.txt"}
-  ]},
-    {"type":"file","name":"z.json"},
-    {"type":"file","name":"z.sh"}
+  ]}
   ]}
 ,
   {"type":"report","directories":2,"files":9}

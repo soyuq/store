@@ -2,6 +2,7 @@
   {"type":"directory","name":".","contents":[
     {"type":"file","name":"0sync.sh"},
     {"type":"file","name":"index.html"},
+    {"type":"file","name":"jaja.txt"},
     {"type":"file","name":"tree.json"},
     {"type":"file","name":"tree.sh"},
     {"type":"directory","name":"z","contents":[
@@ -14,5 +15,5 @@
   ]}
   ]}
 ,
-  {"type":"report","directories":2,"files":8}
+  {"type":"report","directories":2,"files":9}
 ]

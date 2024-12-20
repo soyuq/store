@@ -26,7 +26,6 @@
 			function reflect(element, contents, url) {
 				for (const entry of contents) {
 					if (entry.type == "directory") {
-						console.log('d', entry.name)
 						let details = document.createElement("details")
 						let summary = document.createElement("summary")
 						summary.innerText = entry.name
@@ -35,7 +34,6 @@
 						reflect(details, entry.contents, `${url}/${entry.name}`)
 					}
 					if  (entry.type == "file") {
-						console.log('f', entry.name)
 						let a = document.createElement("a")
 						a.innerText = entry.name
 						a.href = `${url}/${entry.name}`
@@ -49,9 +47,28 @@
 				
 				const currentDirContent = contents[0].contents // which its .name is "."
 				reflect(document.querySelector("#container"), currentDirContent, "./")
+				document.querySelector("a, summary").focus()
+			}
+			let at = 0
+			document.body.onkeydown = e => {
+				console.log(at)
+				const ite = document.querySelectorAll("details[open] > details > summary, details[open] > a")
+				if (e.key == "j") {
+					at++
+					if (at>=ite.length) at=ite.length-1
+					ite[at].focus()
+				}
+				if (e.key.toLowerCase() == "k") {
+					at--
+					if (at<=0) at=0
+					ite[at].focus()
+				}
+				if (e.key.toLowerCase() == "l") {
+					e.target.click()
+				}
+				console.log(at, ite[at])
 			}
 			init()
-			console.log("jii")
 		</script>
 		<style>
 			* {
@@ -84,6 +101,7 @@
 				background-color: #385651 ;
 				background-color: #293338ff;
 			}
+			summary:focus,
 			a:focus {
 				outline: 2px solid #8BDA73;
 			}
